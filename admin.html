@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم مكتب المحاماة</title>
+    <link rel="stylesheet" href="styles/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-balance-scale"></i>
+                <h1>لوحة تحكم مكتب المحاماة</h1>
+            </div>
+            <div class="admin-info">
+                <span>مرحباً، Admin</span>
+                <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
+            </div>
+        </header>
+        
+        <div class="admin-content">
+            <div class="login-form" id="loginForm">
+                <h2>تسجيل الدخول إلى لوحة التحكم</h2>
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> اسم المستخدم</label>
+                    <input type="text" id="username" required placeholder="أدخل اسم المستخدم">
+                </div>
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> كلمة المرور</label>
+                    <input type="password" id="password" required placeholder="أدخل كلمة المرور">
+                </div>
+                <button type="button" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                </button>
+            </div>
+            
+            <div class="dashboard" id="dashboard" style="display: none;">
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>إجمالي التذاكر</h3>
+                            <span id="totalTickets">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>تذاكر جديدة</h3>
+                            <span id="newTickets">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>تذاكر مكتملة</h3>
+                            <span id="completedTickets">0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tickets-section">
+                    <h2>التذاكر الواردة</h2>
+                    
+                    <div class="filters">
+                        <select id="statusFilter">
+                            <option value="all">جميع التذاكر</option>
+                            <option value="new">جديدة</option>
+                            <option value="in-progress">قيد المعالجة</option>
+                            <option value="completed">مكتملة</option>
+                        </select>
+                        
+                        <input type="text" id="searchInput" placeholder="ابحث برقم التذكرة أو الاسم">
+                    </div>
+                    
+                    <table class="tickets-table">
+                        <thead>
+                            <tr>
+                                <th>رقم التذكرة</th>
+                                <th>الاسم</th>
+                                <th>الهاتف</th>
+                                <th>نوع القضية</th>
+                                <th>التاريخ</th>
+                                <th>الحالة</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ticketsTableBody">
+                            <!-- سيتم ملء هذا القسم عبر JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="ticket-details" id="ticketDetails" style="display: none;">
+                    <h2>تفاصيل التذكرة <span id="detailTicketNumber"></span></h2>
+                    
+                    <div class="details-actions">
+                        <button id="backToListBtn"><i class="fas fa-arrow-right"></i> العودة إلى القائمة</button>
+                        <div>
+                            <select id="statusChange">
+                                <option value="new">جديدة</option>
+                                <option value="in-progress">قيد المعالجة</option>
+                                <option value="completed">مكتملة</option>
+                            </select>
+                            <button id="updateStatusBtn">تحديث الحالة</button>
+                        </div>
+                    </div>
+                    
+                    <div class="ticket-info">
+                        <div>
+                            <strong>الاسم:</strong> <span id="detailName"></span>
+                        </div>
+                        <div>
+                            <strong>الهاتف:</strong> <span id="detailPhone"></span>
+                        </div>
+                        <div>
+                            <strong>البريد الإلكتروني:</strong> <span id="detailEmail"></span>
+                        </div>
+                        <div>
+                            <strong>نوع القضية:</strong> <span id="detailCaseType"></span>
+                        </div>
+                        <div>
+                            <strong>التاريخ:</strong> <span id="detailDate"></span>
+                        </div>
+                        <div>
+                            <strong>الحالة:</strong> <span id="detailStatus"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="ticket-message">
+                        <h3>تفاصيل الاستشارة:</h3>
+                        <p id="detailMessage"></p>
+                    </div>
+                    
+                    <div class="contact-actions">
+                        <a href="#" id="whatsappBtn" class="action-btn">
+                            <i class="fab fa-whatsapp"></i> التواصل عبر واتساب
+                        </a>
+                        <a href="tel:" id="callBtn" class="action-btn">
+                            <i class="fas fa-phone"></i> الاتصال بالعميل
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
